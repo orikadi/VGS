@@ -1,0 +1,81 @@
+﻿@model IEnumerable<VGS.Models.Game>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+
+
+@if ((bool)Session["Logged"])
+{
+    if ((int)Session["UserType"] == 1)
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Studio.StudioName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Studio.StudioName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GameName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.GameId })
+                @if ((bool)Session["Logged"])
+                {
+                    if ((int)Session["UserType"] == 1)
+                    {
+                        <span>|</span>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.GameId })
+                        <span>|</span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.GameId })
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>

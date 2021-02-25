@@ -1,0 +1,85 @@
+﻿@Styles.Render("~/Content/Site.css")
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="~/Content/images/vgs.png" alt="VGS" height="50" width="90" style="margin-top:-15px"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li>@Html.ActionLink("Currency Exchange", "CurrencyExchange", "Home")</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Game<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("All", "Index", "Games")</li>
+                        <li>@Html.ActionLink("Search", "Search", "Games")</li>
+                        @if ((bool)Session["Logged"])
+                        {
+                            <li>@Html.ActionLink("Recommend", "Recommend", "Games")</li>
+                        }
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Studio<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("All", "Index", "Studios")</li>
+                        <li>@Html.ActionLink("Search", "Search", "Studios")</li>
+                    </ul>
+                </li>
+                @if ((bool)Session["Logged"])
+                {
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("All", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Search", "Search", "Users")</li>
+                            <li>@Html.ActionLink("Your Details", "Details", "Users", new { id = (int)Session["UserId"] }, null)</li>
+                            <li>@Html.ActionLink("Add Funds", "AddFundsPage", "Users")</li>
+                        </ul>
+                    </li>
+
+                }
+                @if ((bool)Session["Logged"])
+                {
+                    if ((int)Session["UserType"] == 1)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Charts", "Charts", "Admin")</li>
+                                <li>@Html.ActionLink("StudioGenreCount", "StudioGenreCount", "Admin")</li>
+                            </ul>
+                        </li>  
+                    }
+                }
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @if ((bool)Session["Logged"])
+                {
+                    <li><button type="button" class="btn btn-default navbar-btn" onclick="javascript:window.location=('@Url.Action("Logout", "Users", null)')">Sign out</button></li>
+                }
+                else
+                {
+                    <li><button type="button" class="btn btn-default navbar-btn" onclick="javascript:window.location=('@Url.Action("SignIn", "Users", null)')">Sign in</button></li>
+                }
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</nav>

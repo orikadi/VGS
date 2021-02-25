@@ -1,0 +1,79 @@
+﻿@model VGS.Models.User
+
+
+    @{
+        ViewBag.Title = "Details of "+Model.UserName;
+    }
+
+
+<div>
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        @if ((bool)Session["Logged"])
+        {
+            if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1) //only admin/same user can see balance
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Balance)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Balance)
+                </dd>
+            }
+        }
+    </dl>
+    @if ((bool)Session["Logged"])
+    {
+        if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1)
+        {
+            <form method="post">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-10">
+                            <input style="" type="button" value="View Games" class="btn btn-default" id="ViewGamesButton" onclick="ViewGames()" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        }
+    }
+        </div>
+
+
+
+
+<p>
+    @if ((bool)Session["Logged"])
+    {
+        if ((int)Session["userId"] == Model.UserId || (int)Session["UserType"] == 1) // show edit button if admin or personal profile
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
+        }
+    }
+</p>
+
+<script>
+   function MoveToAddFunds(){
+         window.location = ('@Url.Action("AddFundsPage", "Users", null)');
+    }
+
+    function ViewGames() {
+        window.location = ('@Url.Action("ViewGames", "Users", new {id= Model.UserId })')
+    }
+</script>

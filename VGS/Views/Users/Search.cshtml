@@ -1,0 +1,85 @@
+﻿
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<form method="post">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="UserName">Username</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="UserNameInput" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Age">Age</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="AgeInput" type="number" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Email">Email</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="EmailInput" type="email" value="" />
+            </div>
+        </div>
+        @if ((bool)Session["Logged"])
+        {
+            if ((int)Session["UserType"] == 1)
+            {
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="UserType">User Type</label>
+                    <div class="col-md-10">
+                        <input class="form-control text-box single-line" id="UserTypeInput" type="number" value="" />
+                    </div>
+                </div>
+            }
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Search" class="btn btn-default" id="SearchButton" onclick="Search()" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function Search() {
+        var name = $("#UserNameInput").val();
+        var age = $("#AgeInput").val();
+        var email = $("#EmailInput").val();
+        var userType = $("#UserTypeInput").val();
+        var flag = false;
+        var parameters = "?";
+        if (name != "" && name != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "username=" + name;
+        }
+        if (age != "" && age != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "age=" + age;
+        }
+        if (email != "" && email != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "email=" + email;
+        }
+        if (userType != "" && userType != null && @Session["UserType"]==1) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "userType=" + userType;
+        }
+        if (parameters=="?")
+            window.location ="/Users/SearchUser";
+        else
+            window.location ="/Users/SearchUser"+parameters;
+    }
+</script>

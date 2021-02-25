@@ -1,0 +1,115 @@
+﻿
+@model VGS.Models.Game
+@*
+    @{
+        ViewBag.Title = "Game Profile";
+    }
+*@
+@Styles.Render("~/Content/Details.css")
+
+<div class="game-details">
+    <h1 class="game-title">@Html.DisplayFor(model => model.GameName)</h1>
+
+    <section>
+        <aside style="float:right; padding-right:2em"><canvas id="myCanvas" width="460" height="215"></canvas></aside>
+
+        <dl>
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.Studio.StudioName)
+            </dt>
+
+            <dd style="font-size:large">
+                @Html.DisplayFor(model => model.Studio.StudioName)
+            </dd>
+
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+
+            <dd style="font-size:large">
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </dt>
+
+            <dd style="font-size:large">
+                @Html.DisplayFor(model => model.ReleaseDate)
+            </dd>
+
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd style="font-size:large">
+                @Html.DisplayFor(model => model.Price) EUR
+            </dd>
+
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
+
+            <dd style="font-size:large">
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
+        </dl>
+
+    </section>
+</div>
+
+<form method="post">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-10">
+                <input style="" type="button" value="Buy Now" class="btn-lg" id="BuyButton" onclick="BuyGame()" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<p>
+    @if ((bool)Session["Logged"])
+    {
+        if ((int)Session["UserType"] == 1)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.GameId })
+            @Html.Raw(" | ")
+        }
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+<script type="text/javascript">
+    window.onload = function () {
+
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        var img = new Image();
+        var pic = "@Model.ImagePath"
+        img.src = "/Content/images/"+pic+".jpg";
+        img.onload = () => { context.drawImage(img, 0, 0,460,215) }
+    }
+
+    function BuyGame() {
+        $.ajax({
+                type: "GET",
+                url: "/Games/Buy",
+            data: {
+                gameId: @Model.GameId
+                },
+            dataType: "json",
+            success: function (data) { // 3-successfully bought. 2-already owned. 1-insufficient funds.
+                    if (!data) window.location = ('@Url.Action("SignIn", "Users", null)');
+                    else if (data == 3) alert("Bought successfully");
+                    else if (data == 2) alert("You already own this game");
+                    else alert("Insufficient funds");
+                },
+                error: function (xhr, status, error) {
+                    alert("Problem buying game");
+                }
+            });
+    }
+</script>

@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<form method="post">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="GameName">Game Name</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="GameNameInput" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Genre">Genre</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="GenreInput" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StudioName">Studio Name</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="StudioNameInput" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ReleaseDate">Release Date</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="ReleaseDateInput" type="date" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Price">Price</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="PriceInput" type="number" value="" min="0" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Rating">Rating</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="RatingInput" type="number" value="" min="0" max="5" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Search" class="btn btn-default" id="SearchButton" onclick="Search()" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function Search() {
+        var name = $("#GameNameInput").val();
+        var genre = $("#GenreInput").val();
+        var studioName = $("#StudioNameInput").val();
+        var releaseDate = $("#ReleaseDateInput").val();
+        var price = $("#PriceInput").val();
+        var rating = $("#RatingInput").val();
+
+        var flag = false;
+        var parameters = "?";
+        if (name != "" && name != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "name=" + name;
+        }
+        if (genre != "" && genre != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "genre=" + genre;
+        }
+        if (studioName != "" && studioName != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "studioName=" + studioName;
+        }
+        if (releaseDate != "" && releaseDate != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "releaseDate=" + releaseDate;
+        }
+        if (price != "" && price != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "price=" + price;
+        }
+        if (rating != "" && rating != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "Rating=" + rating;
+
+        }
+        if (parameters == "?")
+            window.location = "/Games/SearchGame";
+        else
+            window.location = "/Games/SearchGame" + parameters;
+    }
+</script>
+@**@

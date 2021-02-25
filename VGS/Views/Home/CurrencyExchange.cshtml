@@ -1,0 +1,29 @@
+﻿@model Dictionary<string, double>
+@{
+    ViewBag.Title = "Currency Exchange";
+}
+
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th>
+            Currency (from euro)
+        </th>
+        <th>
+            Value
+        </th>
+    </tr>
+    </thead>
+    @foreach (KeyValuePair<string, double> entry in Model)
+    {
+        <tr>
+            <td>
+                @entry.Key
+            </td>
+            <td>
+                @entry.Value
+            </td>
+        </tr>
+    }
+</table>
+

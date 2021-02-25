@@ -1,0 +1,10 @@
+﻿@model List<VGS.Models.Game>
+@{
+    ViewBag.Title = "Recommended Games";
+}
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>@Html.ActionLink(item.GameName, "Details",new {id=item.GameId})</li>
+    }
+</ul>

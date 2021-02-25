@@ -1,0 +1,54 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.video-home {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar {
+    background-color: #B2EBF2;
+}
+
+.navbar-btn {
+    transition: color 2s, background-color 2s;
+}
+
+.navbar-btn:hover {
+    color: #2196F3;
+}
+
+.title {
+    font-family: 'FormanBold';
+}
+
+@font-face {
+    font-family: 'FormanBold';
+    src: url('../fonts/Foreman-Bold.otf') format("opentype");
+}
+
+.context {
+    font-family: 'Exo2-Black';
+}

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<VGS.Models.Studio>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if ((bool)Session["Logged"])
+{
+    if ((int)Session["UserType"] == 1)
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudioName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudioName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.StudioId })
+                @if ((bool)Session["Logged"])
+                {
+                    if ((int)Session["UserType"] == 1)
+                    {
+                        <span>|</span>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.StudioId })
+                        <span>|</span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.StudioId })
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>

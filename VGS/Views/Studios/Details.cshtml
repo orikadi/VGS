@@ -1,0 +1,57 @@
+﻿@model VGS.Models.Studio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <section>
+        <aside style="float:right">
+            <iframe width="400"
+                    height="350"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBvIaWQU-QCLP9gtHVoRF0NvvPuMUgRn1w
+                    &q=@Model.Address" allowfullscreen></iframe>
+        </aside>
+
+        <dl>
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.StudioName)
+            </dt>
+
+            <dd style="font-size:large">
+                @Html.DisplayFor(model => model.StudioName)
+            </dd>
+
+            <dt style="font-size:larger">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd style="font-size:large">
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+        </dl>
+
+        <form method="post">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input style="" type="button" value="View Games" class="btn btn-default" id="ViewGamesButton" onclick="javascript:window.location=('@Url.Action("SearchGame", "Games", new {studioName=Model.StudioName})')" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+
+<p>
+    @if ((bool)Session["Logged"])
+    {
+        if ((int)Session["UserType"] == 1)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.StudioId })
+            @Html.Raw(" | ")
+        }
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

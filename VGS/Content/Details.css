@@ -1,0 +1,11 @@
+﻿
+.game-title {
+    text-shadow: 2px 4px 5px #00004f;
+}
+
+.game-details {
+    border: 1px solid #000052;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+}

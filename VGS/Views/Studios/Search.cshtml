@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+
+<form method="post">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="StudioName">Studio Name</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="StudioNameInput" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Address">Address</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line" id="AddressInput" type="text" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Search" class="btn btn-default" id="SearchButton" onclick="Search()" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function Search() {
+        var name = $("#StudioNameInput").val();
+        var address = $("#AddressInput").val();
+        var flag = false;
+        var parameters = "?";
+        if (name != "" && name != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "name=" + name;
+        }
+        if (address != "" && address != null) {
+            if (flag)
+                parameters = parameters + "&";
+            flag = true;
+            parameters = parameters + "address=" + address;
+        }
+        if (parameters=="?")
+            window.location ="/Studios/SearchStudio";
+        else
+            window.location ="/Studios/SearchStudio"+parameters;
+    }
+</script>
